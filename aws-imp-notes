@@ -1,0 +1,90 @@
+Prompt engineering 
+    1. referes to the practice of optimizing textual input to LLMs to obtain desired inputs.
+    2. its like fine tuning of input text / queries. Asking the same query in different formats to get
+       the expected output
+Prompts
+    Prompts are set of inputs
+Prompt engineering use cases:
+1. Code generation
+2. QA without context
+3. Q&A with context
+4. Summarization
+5. Reasonging or logical thinking
+
+=================================
+Use case 1: Text to image generation
+====================================
+we are  using Stability.ai diffusion model 1.0 and it has the following inference parameters for a text to 
+image inference call.
+{
+    text_prompts [
+        {
+            text:
+            float: 
+        }
+    ],
+    height:
+    weight(optional): The weight that the model should apply to the prompt. A value less than zero is negative prompt. 
+            we can use this negative prompt to avoid cerain concepts. Default value is none
+            Min / Max - (0, 2000)
+    cfg_scale(optional): This value is to add randomness to the output. User lower value to increase the
+            randomness in the generation.
+           ( min, max) range= (0, 35). Default value 7
+    sampler(optional): It is used to add noise for the image and slowly correct that. (Diffusion process) .
+            If its omitted , the model automatically selects an appropriate sampler value based on few
+            algorithms. Ex: DDIM algorithms works for human faces generation
+             ( min, max) range= (1,1). Default value 1
+    style_preset: 3d
+}
+=================================
+Use case 2: image Editing
+====================================
+To edit an image we need 2 params mainly
+1) inputPaintingparams - Image and Either maskPrompt or maskImage need to provide
+        Image - Mandatory
+        maskPrompt: A text prompt that defines the mask
+        maskImage: A string that defines the mask. Specific protion of the image which portion you want to edit. need to provide pixel sizes.
+2) outputPaintingparams
+
+===============================
+Embeddings and Vecotr Databases
+===============================
+ Why we need embeddings? Basically to find similarity search
+1. Embeddings are numerical representation of data: text, images, sound, audio...
+2. Text embeddings are numerical representation of text data 
+3. Embedding is in the form of numbers array (vector)
+   Ex: [0.2, 0. 340, -0.4, 1]
+4. Embedding space: It represents similar words. To find similarity we use dot product concept. 
+        Cosine formula we use to find the distance
+
+Why Vector databases
+    Generally AI application have challenge with efficient data processing 
+    VDB resolves efficient data processing issue
+    Ex: Pinecone, chroma, Redis, Postgrade sql - PG vector extension
+    1. Specialized for storing vectors
+    2. SQL query  - based on values match, 
+       Vector query- based on Similary search
+    3. Vector DB 
+       holds data + embeddings
+       uses an embedding as query parameter
+       it uses a combination of different optimized algorithms - Approximate nearest neighbour search algo
+
+===============================
+Langchain
+===============================
+Langchain is a framework for developing applications powered by Language models 
+Integrate with external data sources and vector DBs
+Implement abstractions:
+  Chains
+  Agents - use an LLM to make decisions
+
+==============================
+RAG - Retrieval augmented generation
+==============================
+RAG is the process of optimizing output of LLM, so it references an authoritative base OUTSIDE OF ITS TRAINING DATA sources before generating a response.
+ So RAG can be used to extend the capabilities of LLM model without retraining and can achieve similary
+ functionality 
+ Workflow:
+    Data files ----> Split into chunks -----> Generate embedding using bedrock embedding opneAI interfaces
+    ----> Store as vectors in vectore DB
+    User  query -> goest to vectore DB -> fetches most relevant chunks  -> Response to user 

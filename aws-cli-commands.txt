@@ -1,0 +1,32 @@
+aws --version
+aws configure
+aws s3 ls
+aws bedrock list-foundation-models
+--> for creating envi
+py -m venv .venv  
+--> activating environment
+source .venv/Scripts/activate
+pip install -r requirements.txt
+$ py  src/intro/starter.py 
+-->debugger file creation launch.json
+--> to install cdk
+npm i -g aws-cdk
+
+============
+To rest Lambda
+=============
+Create Lambda function
+Configure handler
+configure timeout
+configure Lambda rights
+create the event 
+run the Lambda
+
+============
+Bedrock knowledge base
+============
+These are an interface for RAG applications
+What is RAG ?
+RAG is the process of optimizing the output of LLM model, so it referenes an
+autorhitive knowledge base outside of its training data sources
+
